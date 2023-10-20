@@ -39,16 +39,22 @@ MapNLQ(clip BL, clip EL, string "rpu")
 
 The output is 12-bit.
 
+#### Script example
+
 ```
 BL_clip
 z_ConvertFormat(bit_depth=16)
+Prefetch(2)
 libplacebo_Tonemap(src_csp=3, dst_csp=1)
-bl=z_ConvertFormat(pixel_type="yuv420p16", chromaloc_op="top_left=>top_left", resample_filter="spline36")
+Prefetch(1)
+z_ConvertFormat(pixel_type="yuv420p16", chromaloc_op="top_left=>top_left", resample_filter="spline36")
+bl=Prefetch(2)
 
 el=EL_clip
 
 MapNLQ(bl, el)
 #MapNLQ(bl, el, rpu)
+Prefetch(2)
 ```
 
 ### Building:
