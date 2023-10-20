@@ -39,7 +39,6 @@ static AVS_VideoFrame* AVSC_CC MapNLQ_get_frame(AVS_FilterInfo* fi, int n)
     }
     };
 
-    const AVS_Map* props{ avs_get_frame_props_ro(fi->env, el_frame) };
     DoviRpuOpaque* rpu{ [&]() -> DoviRpuOpaque*
     {
         if (d->rpu)
@@ -51,6 +50,7 @@ static AVS_VideoFrame* AVSC_CC MapNLQ_get_frame(AVS_FilterInfo* fi, int n)
         }
         else
         {
+            const AVS_Map* props{ avs_get_frame_props_ro(fi->env, el_frame) };
             if (avs_prop_num_elements(fi->env, props, "DolbyVisionRPU") > -1)
             {
                 const uint8_t* rpu_prop{ reinterpret_cast<const uint8_t*>(avs_prop_get_data(fi->env, props, "DolbyVisionRPU", 0, nullptr)) };
