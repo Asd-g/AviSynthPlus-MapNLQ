@@ -26,7 +26,7 @@ MapNLQ(clip BL, clip EL, string "rpu")
 
 - EL<br>
     Enhancement layer<br>
-    It must be Profile 7 (BL+EL+RPU).<br>
+    It must be Profile 7 (EL+RPU).<br>
     It must be in YUV 10-bit planar format.<br>
     It must have the same subsampling as `BL`.<br>
     It must have 0.25 dimension of the `BL` dimension.<br>
