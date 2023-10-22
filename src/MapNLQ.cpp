@@ -265,7 +265,7 @@ AVS_Value AVSC_CC create_MapNLQ(AVS_ScriptEnvironment* env, AVS_Value args, void
         avs_get_plane_height_subsampling(&fi->vi, AVS_PLANAR_U) != avs_get_plane_height_subsampling(vi1, AVS_PLANAR_U))
         return set_error("MapNLQ: the clips subsampling doesn't match.", params->el);
     if ((fi->vi.width != vi1->width << 1) || (fi->vi.height != vi1->height << 1))
-        return set_error("MapNLQ: the clips EL dimension must be 0.25 of the BL dimension.", params->el);
+        return set_error("MapNLQ: the EL dimension must be 0.25 of the BL dimension.", params->el);
 
     if (avs_is_420(&fi->vi))
         fi->vi.pixel_type = (avs_is_yuv(&fi->vi)) ? AVS_CS_YUV420P12 : AVS_CS_YUVA420P12;
