@@ -17,9 +17,11 @@ if (UNIX)
     /usr/local/include/avisynth
     /usr/local/include
     )
+else if (MINGW)
+    target_include_directories(MapNLQ PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/dovi_tool/dolby_vision/target/x86_64-pc-windows-gnu/release/include)
+else()
+    target_include_directories(MapNLQ PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/dovi_tool/dolby_vision/target/x86_64-pc-windows-msvc/release/include)
 endif()
-
-target_include_directories(MapNLQ PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/dovi_tool/dolby_vision/target/x86_64-pc-windows-msvc/release/include)
 
 if (NOT CMAKE_GENERATOR MATCHES "Visual Studio")
     if (NOT CMAKE_BUILD_TYPE)
@@ -38,7 +40,10 @@ endif()
 
 target_compile_features(MapNLQ PRIVATE cxx_std_17)
 
-find_library(libdovi dovi PATHS ${CMAKE_CURRENT_SOURCE_DIR}/dovi_tool/dolby_vision/target/x86_64-pc-windows-msvc/release)
+find_library(libdovi dovi PATHS
+    ${CMAKE_CURRENT_SOURCE_DIR}/dovi_tool/dolby_vision/target/x86_64-pc-windows-msvc/release
+    ${CMAKE_CURRENT_SOURCE_DIR}/dovi_tool/dolby_vision/target/x86_64-pc-windows-gnu/release
+)
 message(STATUS "libdovi: ${libdovi}")
 
 target_link_libraries(MapNLQ PRIVATE
@@ -59,7 +64,7 @@ endif()
 if (MINGW)
     set_target_properties(MapNLQ PROPERTIES PREFIX "")
 
-    target_link_libraries(MapNLQ PRIVATE -static-libgcc -static-libstdc++ -s)
+    target_link_libraries(MapNLQ PRIVATE -static-libgcc -static-libstdc++ -s -static)
 endif()
 
 if (UNIX)
